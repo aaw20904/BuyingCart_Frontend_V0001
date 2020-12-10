@@ -233,6 +233,7 @@
         color: black;
         margin:4px 17px;
         font-weight: bold;
+      
     }
     
     /*styling a TABLE-like cart*/
@@ -240,6 +241,7 @@
         display:table;
         -webkit-box-sizing: border-box;
                 box-sizing: border-box;
+           width: 100%;
     }
     table.buyingCart > thead > tr > th{
         font-family: 'Trispace', sans-serif;
@@ -1412,37 +1414,14 @@
         function onCheckout0001 (d) {
             alert(JSON.stringify(d));
         }
-        
-        /**testing ProdString01*/
-        var templ = "<td><div><img src='undef_cart.svg'></div><div data-type='name'>name?</div></td>"+
-            "<td data-type='count'>cnt?</td>"+
-            "<td data-type='price'>price?</td><td data-type='sum'>sum?</td>"+
-            "<td><button data-type='btn_plus' class='btn'>+</button><button data-type='btn_minus' class='btn'>-</button></td>"
-      //  var stringTableFactory= new ProdString01('cartWrapper','tableBody',templ);
-       // stringTableFactory.createString('f1');
-       // stringTableFactory.removeString('f1');
-        var useC = new Interactor();
-        useC.regCheckoutFunction(onCheckout0001);
-        /*useC.addInCart('f1',3);
-        useC.addInCart('f2',2);
-        var test001 = new CartActivator('cartWrapper');
-        test001.deactivate();
-        test001.activate();*/
+        var useC;
+        window.onload = function () {
+            useC = new Interactor();
+            useC.regCheckoutFunction(onCheckout0001);
+        }
+     
         
       
-        
-        function tester123456(p){
-            console.info((new Date().toLocaleTimeString()) + ' :' + p);
-        }
-        var tst  = new QueriesFromGoodsList('data-parent-assortment="goods"');
-        tst.regCallback(tester123456);
-       /* var tst0001 = document.querySelectorAll('[data-goods-btn]');
-        var keys = Object.keys(tmp);
-        for (var q in keys) {
-            if ((q != 'length') && (q != null)) {
-               console.info(tmp[q].attributes[0].nodeValue);
-            }
-        }*/
-          
+       
     </script>
 </html>
