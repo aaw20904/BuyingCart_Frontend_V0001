@@ -1,0 +1,1222 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+        <link href="https://fonts.googleapis.com/css2?family=Trispace&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Trispace&display=swap" rel="stylesheet">
+        <title>JS-practice</title>
+<style>
+    @import url(reset.css);
+    /*disable horiz scroll*/
+    .body{
+        overflow-x: hidden;
+        
+    }
+    .wrapper{
+        position:fixed;
+        top:50px;
+        display: flex;
+        z-index: 10;
+        flex-flow: column nowrap;
+        border: 2px solid gray;
+        border-radius: 8px;
+        background-color: #D7B957;
+        width:100%;
+        visibility:hidden;
+        box-sizing: border-box;
+    }
+    /**container all the strings in the cart*/
+   
+    .noGoodsInCart{
+        background-color:inherit;
+        color:darkslategrey;
+        display: inline;
+        font-family: 'Trispace', sans-serif;
+        font-size: 14px;
+        font-weight: bold;
+        border: none;
+        padding:6px 24px;
+        letter-spacing: .2rem;
+        text-align: center;
+    }
+ .btn {
+	
+	background-color:#A3B40E;
+	border-radius:6px;
+	border:1px solid #005000;
+	display:inline-block;
+	cursor:pointer;
+	color:#292C3F;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:3px 5px;
+    margin: 0 5px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffee66;
+     transform: skew(-15deg);
+   animation-name: btnAniBefore;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+}
+.btn:hover {
+	animation-name: btnAni;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+    /*background-color:#971D12;
+    color: #FEF49D;*/
+}
+   .btn:active {
+	   position:relative;
+	   top:1px;
+    }
+    
+    .headOfCart{
+        
+        display: flex;
+        flex-flow: row nowrap;
+        background-color:#FFFADD;
+        color:#8E7A3D;
+        justify-content: space-around;
+        box-sizing: border-box;
+    }
+    .headOfCart > div:nth-child(1) {
+        display: flex;
+        justify-content: center;
+        align-items: baseline;
+        flex:3;
+        align-items: center;
+         font-family: 'Trispace', sans-serif;
+        font-size: 14px;
+    }
+    
+    .headOfCart > div:nth-child(2) {
+        display: flex;
+        justify-content: flex-end;
+        align-items: baseline;
+        flex:1;
+    }
+    .headOfCart > div:nth-child(2) > button{
+        padding: 3px 3px;
+        border-radius:5px;
+        transform: skewX(-15deg);
+        font-family: 'Trispace', sans-serif;
+        font-size: 14px;
+        background-color: #FF6E69;
+        border: 1px solid black;
+        animation-name: btnCartAniBefore;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards;
+    }
+    .headOfCart > div:nth-child(2) > button:hover{
+        animation-name: btnCartAni;
+        animation-duration: 0.5s;
+    animation-fill-mode: forwards;
+        
+    }
+    
+    /*animation*/
+    @keyframes btnCartAni {
+        from {
+          background-color: #FF6E69;
+        }
+        to {
+           background-color: #eeaf94;
+        }
+        
+    }
+    
+    @keyframes btnCartAniBefore {
+        from {
+            background-color: #eeaf94;
+        }
+        to {
+            background-color: #FF6E69;
+        }
+    }
+    
+    
+    .nextCartCheckout{
+        display: flex;
+        flex-flow: row nowrap;
+        background-color: #E6C799;
+        color:#266150;
+        justify-content:space-between;
+        align-items:center;
+    }
+    .nextCartCheckout > div{
+        font-size: 14px;
+        color: black;
+        margin:4px 17px;
+        font-weight: bold;
+    }
+    
+    /*styling a TABLE-like cart*/
+    table.buyingCart{
+        display:table;
+        box-sizing: border-box;
+    }
+    table.buyingCart > thead > tr > th{
+        font-family: 'Trispace', sans-serif;
+        font-size: 16px;
+        background-color: #EEDA3B;
+        color:#266150;
+        padding: 3px;
+    } 
+    
+    
+    table.buyingCart > tbody {
+        font-size: 16px;
+        color:#213037;
+    }
+    /*item (kind of goods) styling*/
+    table.buyingCart > tbody > tr{
+        font-size: 17px;
+        color:#213037;
+        vertical-align: middle;
+        text-align: center;
+        font-family: 'Trispace', sans-serif;
+    }
+    
+    table.buyingCart > tbody > tr > td > button {
+         margin: 3px 3px;
+    }
+    table.buyingCart > tbody > tr:nth-child(odd) {
+        background-color: #F4EDE5;
+    }
+    table.buyingCart > tbody > tr:nth-child(even) {
+        background-color: #E0B5B1;
+    }
+    table.buyingCart > tbody > tr > td{
+      vertical-align: middle;
+        margin: 8px 8px;
+    }
+     table.buyingCart > tbody > tr > td >div:first-child {
+         display:flex;
+         justify-content: space-between;
+         align-items: center;
+    }   
+    .leftMargin{
+        margin-left:5%;
+    }
+    
+    table.buyingCart > tbody > tr > td >div{
+        display: table-cell;
+    }
+    
+    table.buyingCart > tbody > tr > td:last-child {
+        vertical-align: middle;
+    }
+    
+    img.btnImg{
+        width:15px;
+        height:15px;
+    }
+    /*****media queries*/
+    @media screen  and (max-width: 768px){
+         /**any text element for static*/
+        table.buyingCart > tbody > tr > td > button {
+          margin: 8px 3px;
+       }
+        table.buyingCart > thead > tr > th{
+        font-size: 16px;
+        }
+      
+        table.buyingCart > tbody >tr {
+          font-size: 12px;
+          color:#266150;
+        }
+        
+      .noGoodsInCart{
+        font-size: 14px;
+        padding:6px 17px;
+      }
+    
+     .btn {
+	   font-size:12px;
+	   padding:2px 3px;
+       margin: 0 5px; 
+      } 
+    }
+    
+   /******styling of shop`s page*/
+    section.titleOfShop{
+        position:fixed;
+        width:100%;
+        background-color:#A3B40E;
+       display:flex;
+        flex-flow: row nowrap;
+        align-items: center;
+        justify-content: space-between;
+       
+    }
+    section.titleOfShop > div:nth-child(1){
+        float:left;
+        font-family: 'Trispace', sans-serif;
+        font-size: 32px;
+        color:#4D0906;
+        margin:10px;
+    }
+    section.titleOfShop > div:nth-child(2){
+        float:right;
+         margin-right: 10px;
+    }
+    section.titleOfShop > div:nth-child(2) > button {
+        border: 2px solid grey;
+        background-color:#FEF49D;
+        padding: 8px;
+        border-radius: 5px;
+        cursor:pointer;
+        transform: skew(-15deg);
+        animation-name: btnTitleShopAniBefore;
+        animation-duration: 0.5s;
+        animation-fill-mode: forwards; 
+    }
+    section.titleOfShop > div:nth-child(2) > button:hover {
+    animation-name: btnTitleShopAni;
+    animation-duration: 0.5s;
+    animation-fill-mode: forwards;   
+    }
+    
+    /*animation*/
+    @keyframes btnTitleShopAni {
+        from {
+            background-color:#FEF49D;
+            color:#292C3F;
+        }
+        to {
+            background-color:#971D12;
+        color: #FEF49D;
+        }
+    }
+    
+      @keyframes btnTitleShopAniBefore {
+        from {
+            background-color:#971D12;
+            color: #FEF49D;
+        }
+        to {
+            background-color:#FEF49D;
+            color:#292C3F;
+        }
+    }
+    
+    article.assortmentWrapper {
+        display: grid;
+        grid-template-columns: 33% 33% 33%;
+        justify-content: space-between;
+        box-sizing: border-box;
+        padding: 10px;
+    }
+    
+    article.assortmentWrapper > section {
+        
+        border: 2px solid #aaaaaa; 
+        flex:0 0 25%;
+        display:flex;
+        flex-flow: column nowrap;
+        justify-content: center;
+        align-items: center;
+        margin: 10px;
+        padding: 10px;
+        -webkit-box-shadow: 2px 4px 18px -1px rgba(0,0,0,0.55); 
+        box-shadow: 2px 4px 18px -1px rgba(0,0,0,0.55);
+    }
+    article.assortmentWrapper > section > div{
+          padding: 5px;
+    }
+    
+    article.assortmentWrapper > section > div:nth-child(1){
+        /*the image wrapper*/
+    }
+    
+    article.assortmentWrapper > section > div:nth-child(2){
+        /*the title text wrapper*/
+        font-family: 'Trispace', sans-serif;
+        font-size: 32px;
+    }
+    
+    article.assortmentWrapper > section > div:nth-child(3){
+        /*the descripton text wrapper*/
+        font-family: 'Trispace', sans-serif;
+        font-size: 12px;
+    }
+    
+    article.assortmentWrapper > section > div:nth-child(4){
+        /*the price & button wrapper*/
+        display: flex;
+        flex-flow: row nowrap;
+        justify-content: space-between;
+        align-items: center;
+       
+    }
+    article.assortmentWrapper > section > div:nth-child(4)>div:nth-child(1){
+        font-family: 'Trispace', sans-serif;
+        font-size: 16px;
+        padding: 0 10px;
+    }
+    
+    article.assortmentWrapper > section > div:nth-child(4)>div:nth-child(2){
+        font-family: 'Trispace', sans-serif;
+       
+         padding: 0 10px;
+    }
+    article.assortmentWrapper > section > div:nth-child(4)>div:nth-child(2)>button{
+        color: #213037;
+         font-size: 16px;
+         padding: 0 10px;
+        border: 2px solid grey;
+        background-color:#FEF49D;
+        border-radius: 5px;
+        cursor:pointer;
+        transform: skew(-15deg);
+        animation-name: orderButtonAniBefore;
+        animation-duration: 0.3s;
+        animation-fill-mode: forwards;
+    }
+    
+    article.assortmentWrapper > section > div:nth-child(4)>div:nth-child(2)>button:hover {
+        animation-name: orderButtonAni;
+        animation-duration: 0.3s;
+        animation-fill-mode: forwards;
+    }
+    
+    /*animation*/
+    @keyframes orderButtonAni{
+        from {
+            color: #213037;
+            background-color:#FEF49D;
+        }
+        to {
+            background-color:#2B4B40;
+            color: #FEF49D;
+        }
+    }
+    
+    @keyframes orderButtonAniBefore{
+        from {
+              background-color:#2B4B40;
+              color: #FEF49D;
+        }
+        to {
+            color: #213037;
+            background-color:#FEF49D;
+        }
+    }
+    
+    
+    /**goods section wrapper*/
+    .horiz_align{
+       display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: -1;
+        position: absolute;
+        left:0px;
+        top:50px;
+        width: 100%;
+    }
+    /*animation*/
+    @keyframes btnAni {
+        from {
+            background-color:#A3B40E;
+            color:#292C3F;
+        }
+        to {
+            background-color:#971D12;
+            color: #FEF49D;
+        }
+        
+    }
+    
+    @keyframes btnAniBefore {
+        from {
+            background-color:#971D12;
+            color: #FEF49D;
+        }
+        to {
+            background-color:#A3B40E;
+            color:#292C3F;
+        }
+        
+    }
+     /*****media queries*/
+    @media screen  and (max-width: 1088px) and (min-width: 640px){
+        
+        article.assortmentWrapper {
+           grid-template-columns: 49% 49%;   
+           
+        }
+        
+    }
+    
+     @media screen  and (max-width: 640px){
+       article.assortmentWrapper {
+           grid-template-columns: 99%;  
+         
+        }
+          section.titleOfShop > div:nth-child(1){
+         font-size: 25px;
+         }
+         
+         .wrapper{
+             top: 45px;
+         }
+         
+         article.assortmentWrapper > section > div:nth-child(2){
+         font-size: 25px;
+         }
+         
+    
+    }
+    
+    
+</style>
+    </head>
+    <body>
+        <section class="titleOfShop">
+          <div>OnlineShop</div>
+          <div><button data-type='cart_open'>Cart</button></div>    
+        </section>
+        <!--cart-->
+        <div class="wrapper" id="cartWrapper">
+          <article class="headOfCart">
+              
+              <div>My Shopping cart</div>
+              <div><button data-type='cart_close'>
+                <img class="btnImg" src="close.svg"> 
+              </button></div>
+          </article>
+          
+          <table class='buyingCart'>
+             <thead>
+               <tr>
+                  <th>Product</th>   
+                  <th>Count</th>
+                  <th>Price</th>
+                  <th>Sum</th>
+                  <th>---</th>
+               </tr>
+              </thead>  
+              <tbody data-cart='tableBody' >
+               
+              </tbody>
+          </table>
+          <article class="nextCartCheckout" data-pr="_checkout_">
+            <div>Continue to buy</div><button class='btn' data-type="on_checkout">Checkout</button>    
+          </article> 
+        </div>
+        
+        <!--shopitems-->
+        <div class="horiz_align">
+        <article class="assortmentWrapper" data-parent-assortment="goods">
+          <section>
+              <div> <img src="bread.jpg"></div>
+              <div>Bread</div>
+              <div>This is the bread recipe that can change your life </div>
+              <div>
+                <div>$1.00</div>
+                <div><button data-goods-btn="f1">Add to cart</button></div>
+              </div>
+          </section>
+          <section>
+              <div> <img src="milk.jpg"></div>
+              <div>Milk</div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  </div>
+              <div>
+                <div>$2.00</div>
+                <div><button data-goods-btn="f2">Add to cart</button></div>
+              </div>
+          </section>
+          <section>
+              <div> <img src="onion.jpg"></div>
+              <div>Onion</div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  </div>
+              <div>
+                <div>$0.75</div>
+                <div><button data-goods-btn="f3">Add to cart</button></div>
+              </div>
+          </section>
+          <section>
+              <div> <img src="matches.jpg"></div>
+              <div>Matches</div>
+              <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.  </div>
+              <div>
+                <div>$0.25</div>
+                <div><button data-goods-btn="f4">Add to cart</button></div>
+              </div>
+          </section>        
+        
+        </article>
+        </div>
+    </body>
+    <script>
+ 
+    /****cart activator***/
+        function CartActivator (parID) {
+            var parNode = document.getElementById(parID);
+            if (!parNode) {
+                return -1;
+            }
+            var proxyID = 'EEEYYY';
+            var checkoutClass = 'nextCartCheckout';
+            /***default a car is empy*/
+            var prxNode = document.createElement('article');
+            prxNode.innerText = 'The cart is empty';
+            prxNode.setAttribute ('data-prx','eeemmmppptttyyy');
+            prxNode.setAttribute ('class', 'noGoodsInCart');
+            return {
+                deactivate: function () {
+                    /*attach a proxy to main node*/
+                    parNode.appendChild (prxNode);
+                    /*hide a checkout part*/
+                    var checkout = parNode.querySelector('.' + checkoutClass);
+                    checkout.style.visibility = 'hidden';
+                    /*hide a table*/
+                    var tbl = parNode.querySelector("table");
+                    tbl.style.visibility = 'hidden';
+                },
+                activate: function () {
+                    prxNode = parNode.removeChild(prxNode);
+                    /*show a checkout part*/
+                    var checkout = parNode.querySelector('.' + checkoutClass);
+                    checkout.style.visibility = '';
+                    /*show a table*/
+                    var tbl = parNode.querySelector("table");
+                    tbl.style.visibility = '';
+                },
+                isActive: function () {
+                    if ( parNode.querySelector('[data-prx=' + 'eeemmmppptttyyy'+ ']'))  {
+                        return false;
+                        } else {
+                        return true;
+                        }
+                }
+                
+                
+            }
+        }
+    
+        
+     /**a new class ProdString(pNodeID)*/
+        function ProdString01 (pNode, pSubNodeIDval, template) {
+             var parent;
+             var subNode;
+             var tableStrTempl = template;
+            try{
+               parent = document.getElementById(pNode);
+                if (!parent) {
+                  throw new Error('NULL parent!'); 
+                  return -1;
+                } else {
+                     subNode = parent.querySelector('[data-cart=' + pSubNodeIDval + ']');
+                    if (!subNode) {
+                        throw new Error('NULL parent!');
+                        return -1;
+                    }
+                }
+            }
+            catch(err){
+                console.error(err);
+            }
+            return {
+                createString (ID) {
+                    /*checking if the string exists*/
+                    if (parent.querySelector('[data-pr='+ID+']')) {
+                        /*the string had beenalready created*/ 
+                        return -1;
+                    }
+                    var embedStringOfTable = document.createElement('tr');
+                    /*set attributes*/
+                    embedStringOfTable.setAttribute('data-pr',ID);
+                    /*embedding a string in the end*/
+                    embedStringOfTable.insertAdjacentHTML('beforeend',tableStrTempl);
+                    /*embed a sting into DOM*/
+                    subNode.appendChild(embedStringOfTable);
+                    return 0;
+                },
+                removeString (ID) {
+                    var nodeToRemove = subNode.querySelector('[data-pr='+ID+']');
+                    /*checking if the string exists*/
+                    if (nodeToRemove) {
+                       subNode.removeChild(nodeToRemove);
+                        /*the string had beenalready created*/ 
+                        return 0;
+                    } else {
+                        /*the node hasn`t been found*/
+                        return -1;
+                    }
+                },
+            
+            }
+             
+        }
+        
+    
+        
+        /***********************************
+        class StringUpdater*/
+        //{ key:value, key:value,...}
+        function StringUpdater (pNodeID) {
+            
+            if (!pNodeID) {
+                return null;
+            }
+            
+            try{
+              var parent = document.getElementById(pNodeID);
+                if (!parent) {
+                    throw new Error('node hasn`t been found!');
+                }
+            }
+            catch(с){
+                console.error(c);
+                return -1;
+            }
+            
+            return {
+                    //arguments: @ idOfNode, itemF = { key:value, key:value,...}
+                    updateItem: function (idOfNode, itemF) {
+                        //select a concrete item 
+                        var concreteNode = parent.querySelector('[data-pr=' + idOfNode + ']');
+                        //checking if the item exists
+                        if (!concreteNode) {
+                          return -1;    
+                        }
+                        var tmp;
+                        for (var key in itemF) {
+                          tmp = concreteNode.querySelector('[data-type=' + key + ']');
+                            if(key === 'quantity'){
+                               tmp.innerText = itemF[key] + itemF['units'];    
+                            } else {
+                                if (key !== 'units') {
+                                  tmp.innerText = itemF[key];
+                                }
+                            }
+                        }           
+                        /*check if there is default value: assign an image value*/
+                        var imgNode = concreteNode.querySelector('[data-type=_image_');
+                        if (!imgNode) {
+                            return 0;
+                        }
+                        if (imgNode.getAttribute('src') === 'undef_cart.svg') {
+                             imgNode.setAttribute('src', ('cartImg'+idOfNode+'.svg') );
+                         }
+                        return 0;
+                    }
+            }
+        }
+        /*****************************a StringBinder class**/
+         //templ = {btnID:msg,...}
+        function StringBinder (par_ID, templ) {
+            var eventTranslateTable = templ;
+            var useCaseInpPort = null;
+            var parentNode = document.getElementById(par_ID);
+            var x;
+            /**checking if  parentNode and template exists*/
+            if ((!parentNode) | (!par_ID) | (!eventTranslateTable)) {
+              return -1;  
+            }
+            ///function for handling events - direct from the DOM nodes
+            function eventHandler (event) {
+                var tmp = '';
+                //searching in a table by the key
+                tmp = eventTranslateTable[event.path[0].getAttribute('data-type')];
+                //add an identifier of product item (from an element-container) and # for separation
+                tmp = event.path[2].getAttribute('data-pr') + '#' + tmp;
+                //run callback
+                useCaseInpPort(tmp);
+               
+            }
+            return {
+                    registerCallback: function (f) {
+                       useCaseInpPort = f;         
+                    },
+                  
+                  bindEvents: function (ID) {
+                    //get a one product item 
+                    var productElement = parentNode.querySelector('[data-pr='+ID+']');
+                    ///checking if the item has been already binded
+                    if (productElement.hasAttribute('data-bind')) {
+                       return 0;
+                     }
+                    //othervise bind buttons events to a function-handler 
+                    for (var key in eventTranslateTable) {
+                       //get a button node in according to table {btnid:msg,...}
+                       x = productElement.querySelector('[data-type=' + key + ']');
+                       //bind to function
+                       x.addEventListener('click',eventHandler, false);
+                    }
+                       //set an attribute to mproduct item after binding
+                       productElement.setAttribute('data-bind','1');
+                 },
+                unbindEvents(ID) {
+                    //get a one product item 
+                    var productElement = parentNode.querySelector('[data-pr='+ID+']');
+                    ///checking if the item has been already binded
+                    if (!productElement.hasAttribute('data-bind')) {
+                       return 0;
+                     }
+                    //othervise unbind buttons events to a function-handler 
+                    for (var key in eventTranslateTable) {
+                       //get a button node in according to table {btnid:msg,...}
+                       x = productElement.querySelector('[data-type=' + key + ']');
+                       //bind to function
+                       x.removeEventListener('click',eventHandler);
+                    }
+                       //set an attribute to mproduct item after binding
+                       productElement.removeAttribute('data-bind');
+                }
+            }
+        }
+        //**********************colection status - number of items
+        function CollectionStat (p_ID, containerID) {
+            var mainNode = document.getElementById(p_ID);
+            var parent = mainNode.querySelector('[data-cart='+containerID+']');
+            if(!parent) {
+                //if parent isn`t exist - return null
+                return null;
+            }
+            function isTr (node) {
+                if (node.nodeName === 'TR') {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            return {
+                getItemsKeys: function () {
+                    var arrayLike;
+                    var tmp;
+                    var output = {};
+                    for (var keyID in parent.childNodes) {
+                        /* TEXT and LENGTH e.t.c must been canceled */
+                        if (isTr(parent.childNodes[keyID])) {
+                            output[parent.childNodes[keyID].getAttribute('data-pr')] = true;
+                        }
+                    }
+                    //output.length = Object.keys(output).length;
+                    return output;
+                }
+            }
+        }
+        //ItemStrFormer-------------
+        function ItemStrFormer(pNode_ID) {
+            var resltObj = {};
+            var parent = document.getElementById(pNode_ID);
+            var queryStockFunc;
+            return {
+                stockCallbackReg (f) {
+                    queryStockFunc = f;
+                },
+                process: function (modellData) {
+                    var result = {};
+                    for (var key in modellData) {
+                      /*qery info from a stock*/
+                      result[key]= queryStockFunc(key);
+                      /**add quantity*/
+                      result[key]['quantity'] = modellData[key];
+                      /**add sum**/
+                      result[key]['sum'] = result[key]['quantity'] * result[key]['price']; 
+                    }
+                    return result;
+                },
+            }
+        }
+       /*****class ChOut- set allTheSum of purchase and put it to the DOM element
+        If the sum equals zero - a bottom part of cart will be hide*/
+        function ChOut (wrapID) {
+            var wrapper = document.querySelector('.' + wrapID);
+            var sumNode = wrapper.querySelector('.'+ wrapID + '> div');
+           
+            return {
+                setSum: function (list) {
+                     var sum = 0;
+                    /***!!! checking - if an object empty**/
+                    var x001 = Object.keys(list);
+                    if (x001.length === 0) {
+                        wrapper.style.visibility = 'hidden';
+                        return 0;
+                    }
+                    
+                    for (var q in list) {
+                        sum += list[q].sum;
+                    }
+                    wrapper.style.visibility = '';
+                    sumNode.innerText = 'SUM: $'+sum.toString();
+                }
+            }
+        }
+        //***********************************
+        //a presenter
+        function Presenter () {
+            var templ = "<td><div><div class='leftMargin'><img src='undef_cart.svg' data-type='_image_'></div><div data-type='name'>name?</div></div></td>"+
+            "<td data-type='quantity'>cnt?</td>"+
+            "<td data-type='price'>price?</td><td data-type='sum'>sum?</td>"+
+            "<td><button data-type='btn_plus' class='btn'>+</button><button data-type='btn_minus' class='btn'>-</button><button data-type='btn_remove' class='btn'>x</button></td>";
+            var prxy = new  CartActivator('cartWrapper');
+            /*calculate all the sum and hide a bottom element if sum==0*/
+            var cOut = new ChOut('nextCartCheckout');
+            /*An object of fabric of items for a cart*/
+            var pItemFabrica = new ProdString01('cartWrapper','tableBody',templ);
+            /*an object of updater for items*/
+            var pUpdate = new StringUpdater('cartWrapper');
+            /*an object of binder for events from item`s buttons*/
+            var pBinder = new StringBinder('cartWrapper',{btn_plus:'ON_PLUS', btn_minus:'ON_MINUS',btn_remove:'ON_REMOVE'});
+            /*a processor - forming data for embedding directly into the DOM*/
+            var pFormer = new ItemStrFormer('cartWrapper');
+            /*an object of getter a number of items and KEYS of nodes (data-pr) in DOM */
+            var pStat = new CollectionStat('cartWrapper','tableBody');
+            //create an PROXY-STRING and hide a table (cart) it means that the cart is empty.It is default*/
+            prxy.deactivate();
+            /**interface for query to the stock*/
+            var interactor;
+            /***interface to translate messages from this to an use case interactor-
+            this function calls a handler from the interactor*/
+            var events;
+            
+            return {
+                /**registrate a function from an use case interactor-
+                to call it and get an information from the stock*/ 
+                regCallbackStockQuery: function (f) {
+                    if (f) {
+                        interactor = f;
+                        pFormer.stockCallbackReg(f);
+                        return 0;
+                    } else {
+                    return -1;
+                    }
+                },
+                
+                /***registrate a function from an use case interactor-
+                 that will be call when an event has been occured**/
+                regEventsTranslator: function (f) {
+                    if (f) {
+                        events = f;
+                        pBinder.registerCallback(f);
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                },
+                /*a main interface for use case interactor*/
+                presenterInp: function (dataFromModell) {
+                    var tmp;
+                     
+                    var itemKeysInDOM;
+                    var toDomMgr = {};
+                    //*get keys of DOM items*/
+                     itemKeysInDOM = pStat.getItemsKeys();
+                     /*check - is there an empty cart 'proxy-string'?*/
+                       if ( !prxy.isActive() ) {
+                           prxy.activate();
+                       }
+                    /*forming an Item`s data to put directly in the DOM*/
+                    toDomMgr = pFormer.process(dataFromModell);
+                    
+                    /*calculating all the sum of purchase*/
+                    cOut.setSum(toDomMgr);
+                    /*put the csum into a DOM node*/
+                    
+                    //the list has been formered!
+                    ////**{key:{name:val,price:val,...},key:{name:val,price:...}}   
+                     /**get in to how long modell*/
+                    var lengthMod = Object.keys(dataFromModell).length;
+                    /**get in to how long DOM items*/
+                    var lengthDOMItems = Object.keys(itemKeysInDOM).length;
+                    /*if DOM elems and MODELL are emply*/
+                    if ((lengthMod === 0) && (lengthDOMItems === 0) ) {
+                        /*there is no reson to do enything*/
+                        return 0;
+                    }
+                    /*if we added a new item in the modell-
+                    there are less elements in DOM that in MODELL*/
+                    if (lengthDOMItems  <  lengthMod) {
+                      for (var k in dataFromModell) {
+                          if (!itemKeysInDOM[k]) {
+                              /*create a node*/
+                              pItemFabrica.createString(k);
+                              
+                              /*bind events*/
+                              pBinder.bindEvents(k);
+                          }
+                          
+                          /*update DOM nodes*/
+                          pUpdate.updateItem(k, toDomMgr[k]);
+                      }    
+                        return 0;
+                    }
+                    /*if we deleted from the cart -
+                    there are more elements in DOM that 
+                    in MODELL*/
+                    if (lengthDOMItems  >  lengthMod) {
+                        for (var k in itemKeysInDOM) {
+                             if (dataFromModell[k]) {
+                                 /*if the item exiists in MODELL*/
+                                pUpdate.updateItem(k, toDomMgr[k]);   
+                             } else {
+                                 /*othervise*/
+                                /*unbind events*/
+                                pBinder.unbindEvents(k); 
+                                /*remove item from DOM*/
+                                pItemFabrica.removeString(k);
+                             }
+                        }
+                        /*checking - is the DOM wrapper empty?*/
+                        //*get keys of DOM items*/
+                        itemKeysInDOM = pStat.getItemsKeys();
+                        if ( Object.keys(itemKeysInDOM).length === 0) {
+                           /*create an empty string*/
+                             prxy.deactivate();
+                        }
+                        return 0;
+                    }
+                    /*if a DOM and a MODELL are equals*/
+                     if (lengthDOMItems  ===  lengthMod) {
+                         for (var k in dataFromModell) {
+                           pUpdate.updateItem(k, toDomMgr[k]); 
+                         }
+                     }
+                    
+                }
+            }
+        }
+        
+        
+        /****modell***/
+        function Modell () {
+            var cart = {};
+            /*a callback function - it uses for notification
+            about changes in a cart*/
+            var notifier;
+            return {
+                registerCallback (f) {
+                    if (f) {
+                        notifier = f;
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                },
+                putData: function (ID, count) {
+                    if (!cart[ID]) {
+                        cart[ID] = 0;
+                    }
+                    cart[ID] += count;
+                    if(cart[ID] === 0){
+                        delete cart[ID];
+                    }
+                    notifier();
+                    return 0;
+                },
+                getData: function () {
+                    return Object.assign({}, cart);
+                },
+                remove: function (ID) {
+                    if(cart[ID]) {
+                        delete cart[ID];
+                        notifier();
+                        return 0;
+                      } else {
+                          return -1;
+                      }
+                }
+            }
+        }
+        /*cartUI Cart:show|hide  cart*/ 
+        function HideShowCartUI (pNodeID,btnShowID,btnHideID) {
+            var parent = document.getElementById(pNodeID);
+            if (!parent) {
+                return -1;
+            }
+            
+            var bHide;
+            var bShow 
+            if (btnHideID) {
+               bHide = document.querySelector('[data-type='+btnHideID+']');
+                if(!bHide){
+                    return -1;
+                }
+               bHide.addEventListener('click',function(){parent.style.visibility='hidden';});
+            }
+            
+            if (btnShowID) {
+               bShow = document.querySelector('[data-type='+btnShowID+']');
+                if(!bShow) {
+                    return -1;
+                }
+                bShow.addEventListener('click',function(){parent.style.visibility='visible';}); 
+            }
+            
+            return 0;
+        }
+        /*checkoutHandler constructor*/
+        function CheckOutHandler (pNodeID, btnID) {
+            var isRegistered = false;
+            var parNode = document.getElementById (pNodeID);
+            if (!parNode) {
+                return -1;
+            }
+            var bNode = parNode.querySelector('[data-type='+btnID+']');
+            if (!bNode) {
+                return -1;
+            }
+            return{
+                registerCheckout: function (f) {
+                    if(!isRegistered){
+                       bNode.addEventListener('click',f);
+                    }
+                    isRegistered = true;
+                }
+            }
+            
+        }
+          /*bind buttons from the shop(bottom part of a site) to events handler*/
+        function QueriesFromGoodsList ( parentAttr,  attrBtn = "data-goods-btn") {
+            var callback = null;
+            var temporaryNode;
+            function onClick (event) {
+                var parameter ='#ON_PLUS';
+                if (callback) {
+                    callback(event.currentTarget.attributes[0].nodeValue+parameter);
+                }
+            }  
+            var parentNode = document.querySelector('[' + parentAttr + ']');
+            if (!parentNode) {
+                return -1;
+            }
+            var nodelist = parentNode.querySelectorAll('['+attrBtn+']');
+            var keys = Object.keys(nodelist);
+            for (var q in keys) {
+                   if ((q != 'length') && (q != null)) {
+                      /* temporaryNode = parentNode.querySelector('[' + patternAttr + nodelist[q].attributes[0].nodeValue + ']');*/
+                       nodelist[q].addEventListener('click',onClick,false);
+                    }
+                 }
+            
+            return {
+              regCallback: function (f) {
+                 callback = f;
+              },
+            }
+            
+        }
+        /****use case interactor***/
+        function Interactor () {
+            var continueToBuy = null;
+            var checkOut = new CheckOutHandler('cartWrapper','on_checkout');
+            var mod = new Modell();
+            var pres = new Presenter();
+            var evFromGoods = new QueriesFromGoodsList('data-parent-assortment="goods"');
+            evFromGoods.regCallback(eventsHandler);
+            var iFromStock = new StockDB({f1:{name:'bread',units:'pcs',price:1.0},
+                            f2:{name:'milk',units:'btl',price:2.25},
+                             f3:{name:'onion',units:'Kg',price:0.75},
+                             f4:{name:'matches',units:'pcs',price:0.25},});
+            var uiOnOff = new  HideShowCartUI('cartWrapper','cart_open','cart_close')
+            /*bind an updte modell event*/
+            mod.registerCallback(updateHandler);
+            /**/
+            function updateHandler () {
+              var data = mod.getData();
+              pres.presenterInp(data);
+            }                
+            
+             function onCheckOut () {
+                    continueToBuy(mod.getData());
+            }
+            
+        /*process  events from cart and from goods articles(above on a site)*/
+            function eventsHandler (ev) {
+                var regEx = /([\b,/\,\w]+)\b/g;
+                var identifier, command;
+                identifier = regEx.exec(ev)[0];
+                command = regEx.exec(ev)[0];
+                 switch (command) {  
+                   case 'ON_PLUS':
+                     mod.putData(identifier, 1);
+                     break;
+                   case 'ON_MINUS':
+                     mod.putData(identifier, -1);
+                     break;
+                   case 'ON_REMOVE':
+                     mod.remove(identifier);
+                    break;
+                   default:
+                 }
+            }
+            /*callback to stock register*/
+            pres.regCallbackStockQuery(iFromStock.infoFromStock);
+            /**bind  events handler**/
+            pres.regEventsTranslator(eventsHandler);
+            
+            return{
+                addInCart: function (id, count) {
+                  mod.putData(id, count);
+                },
+                getCart: function (id, count) {
+                  return mod.getData();
+                },
+                regCheckoutFunction (f) {
+                    if (f) {
+                       /*register a handler for checkout*/
+                       checkOut.registerCheckout(onCheckOut);
+                       continueToBuy = f;
+                        return 0;
+                    } else {
+                        return -1;
+                    }
+                }
+            }
+        }
+        
+        /**stock DB class - an emulator of stock*/
+        function StockDB (init) {
+            var base = init;
+            return {
+                infoFromStock (key) {
+                    return base[key];
+                }
+            }
+            
+        }
+        
+        
+        function onCheckout0001 (d) {
+            alert(JSON.stringify(d));
+        }
+        
+        /**testing ProdString01*/
+        var templ = "<td><div><img src='undef_cart.svg'></div><div data-type='name'>name?</div></td>"+
+            "<td data-type='count'>cnt?</td>"+
+            "<td data-type='price'>price?</td><td data-type='sum'>sum?</td>"+
+            "<td><button data-type='btn_plus' class='btn'>+</button><button data-type='btn_minus' class='btn'>-</button></td>"
+      //  var stringTableFactory= new ProdString01('cartWrapper','tableBody',templ);
+       // stringTableFactory.createString('f1');
+       // stringTableFactory.removeString('f1');
+        var useC = new Interactor();
+        useC.regCheckoutFunction(onCheckout0001);
+        /*useC.addInCart('f1',3);
+        useC.addInCart('f2',2);
+        var test001 = new CartActivator('cartWrapper');
+        test001.deactivate();
+        test001.activate();*/
+        
+      
+        
+        function tester123456(p){
+            console.info((new Date().toLocaleTimeString()) + ' :' + p);
+        }
+        var tst  = new QueriesFromGoodsList('data-parent-assortment="goods"');
+        tst.regCallback(tester123456);
+       /* var tst0001 = document.querySelectorAll('[data-goods-btn]');
+        var keys = Object.keys(tmp);
+        for (var q in keys) {
+            if ((q != 'length') && (q != null)) {
+               console.info(tmp[q].attributes[0].nodeValue);
+            }
+        }*/
+          
+    </script>
+</html>
