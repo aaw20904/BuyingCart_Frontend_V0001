@@ -949,10 +949,12 @@
             ///function for handling events - direct from the DOM nodes
             function eventHandler (event) {
                 var tmp = '';
+                var path = event.composedPath();
                 //searching in a table by the key
-                tmp = eventTranslateTable[event.path[0].getAttribute('data-type')];
+                //tmp = eventTranslateTable[event.path[0].getAttribute('data-type')];
+                 tmp = eventTranslateTable[path[0].getAttribute('data-type')];
                 //add an identifier of product item (from an element-container) and # for separation
-                tmp = event.path[2].getAttribute('data-pr') + '#' + tmp;
+                tmp = path[2].getAttribute('data-pr') + '#' + tmp;
                 //run callback
                 useCaseInpPort(tmp);
                
@@ -1024,7 +1026,6 @@
                             output[parent.childNodes[keyID].getAttribute('data-pr')] = true;
                         }
                     }
-                    //output.length = Object.keys(output).length;
                     return output;
                 }
             }
@@ -1318,7 +1319,7 @@
             var keys = Object.keys(nodelist);
             for (var q in keys) {
                    if ((q != 'length') && (q != null)) {
-                      /* temporaryNode = parentNode.querySelector('[' + patternAttr + nodelist[q].attributes[0].nodeValue + ']');*/
+                     
                        nodelist[q].addEventListener('click',onClick,false);
                     }
                  }
@@ -1406,10 +1407,8 @@
                 infoFromStock (key) {
                     return base[key];
                 }
-            }
-            
+            }    
         }
-        
         
         function onCheckout0001 (d) {
             alert(JSON.stringify(d));
@@ -1420,8 +1419,6 @@
             useC.regCheckoutFunction(onCheckout0001);
         }
      
-        
-      
        
     </script>
 </html>
