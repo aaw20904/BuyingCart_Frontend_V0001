@@ -7,7 +7,14 @@
         <link href="https://fonts.googleapis.com/css2?family=Oswald&family=Trispace&display=swap" rel="stylesheet">
         <title>JS-practice</title>
 <style>
-    @import url(reset.css);
+   /*
+* Prefixed by https://autoprefixer.github.io
+* PostCSS: v7.0.29,
+* Autoprefixer: v9.7.6
+* Browsers: last 4 version
+*/
+
+ @import url(reset.css);
     /*disable horiz scroll*/
     .body{
         overflow-x: hidden;
@@ -16,15 +23,21 @@
     .wrapper{
         position:fixed;
         top:50px;
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
         z-index: 10;
-        flex-flow: column nowrap;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-flow: column nowrap;
+                flex-flow: column nowrap;
         border: 2px solid gray;
         border-radius: 8px;
         background-color: #D7B957;
         width:100%;
         visibility:hidden;
-        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
     }
     /**container all the strings in the cart*/
    
@@ -55,15 +68,23 @@
     margin: 0 5px;
 	text-decoration:none;
 	text-shadow:0px 1px 0px #ffee66;
-     transform: skew(-15deg);
-   animation-name: btnAniBefore;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
+     -webkit-transform: skew(-15deg);
+         -ms-transform: skew(-15deg);
+             transform: skew(-15deg);
+   -webkit-animation-name: btnAniBefore;
+           animation-name: btnAniBefore;
+    -webkit-animation-duration: 0.5s;
+            animation-duration: 0.5s;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
 }
 .btn:hover {
-	animation-name: btnAni;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;
+	-webkit-animation-name: btnAni;
+	        animation-name: btnAni;
+    -webkit-animation-duration: 0.5s;
+            animation-duration: 0.5s;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
     /*background-color:#971D12;
     color: #FEF49D;*/
 }
@@ -74,49 +95,93 @@
     
     .headOfCart{
         
+        display: -webkit-box;
+        
+        display: -ms-flexbox;
+        
         display: flex;
-        flex-flow: row nowrap;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-flow: row nowrap;
+                flex-flow: row nowrap;
         background-color:#FFFADD;
         color:#8E7A3D;
-        justify-content: space-around;
-        box-sizing: border-box;
+        -ms-flex-pack: distribute;
+            justify-content: space-around;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
     }
     .headOfCart > div:nth-child(1) {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        justify-content: center;
-        align-items: baseline;
-        flex:3;
-        align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: baseline;
+            -ms-flex-align: baseline;
+                align-items: baseline;
+        -webkit-box-flex:3;
+            -ms-flex:3;
+                flex:3;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
          font-family: 'Trispace', sans-serif;
         font-size: 14px;
     }
     
     .headOfCart > div:nth-child(2) {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        justify-content: flex-end;
-        align-items: baseline;
-        flex:1;
+        -webkit-box-pack: end;
+            -ms-flex-pack: end;
+                justify-content: flex-end;
+        -webkit-box-align: baseline;
+            -ms-flex-align: baseline;
+                align-items: baseline;
+        -webkit-box-flex:1;
+            -ms-flex:1;
+                flex:1;
     }
     .headOfCart > div:nth-child(2) > button{
         padding: 3px 3px;
         border-radius:5px;
-        transform: skewX(-15deg);
+        -webkit-transform: skewX(-15deg);
+            -ms-transform: skewX(-15deg);
+                transform: skewX(-15deg);
         font-family: 'Trispace', sans-serif;
         font-size: 14px;
         background-color: #FF6E69;
         border: 1px solid black;
-        animation-name: btnCartAniBefore;
-        animation-duration: 0.5s;
-        animation-fill-mode: forwards;
+        -webkit-animation-name: btnCartAniBefore;
+                animation-name: btnCartAniBefore;
+        -webkit-animation-duration: 0.5s;
+                animation-duration: 0.5s;
+        -webkit-animation-fill-mode: forwards;
+                animation-fill-mode: forwards;
     }
     .headOfCart > div:nth-child(2) > button:hover{
-        animation-name: btnCartAni;
-        animation-duration: 0.5s;
-    animation-fill-mode: forwards;
+        -webkit-animation-name: btnCartAni;
+                animation-name: btnCartAni;
+        -webkit-animation-duration: 0.5s;
+                animation-duration: 0.5s;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;
         
     }
     
     /*animation*/
+    @-webkit-keyframes btnCartAni {
+        from {
+          background-color: #FF6E69;
+        }
+        to {
+           background-color: #eeaf94;
+        }
+        
+    }
     @keyframes btnCartAni {
         from {
           background-color: #FF6E69;
@@ -125,6 +190,15 @@
            background-color: #eeaf94;
         }
         
+    }
+    
+    @-webkit-keyframes btnCartAniBefore {
+        from {
+            background-color: #eeaf94;
+        }
+        to {
+            background-color: #FF6E69;
+        }
     }
     
     @keyframes btnCartAniBefore {
@@ -138,12 +212,21 @@
     
     
     .nextCartCheckout{
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        flex-flow: row nowrap;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-flow: row nowrap;
+                flex-flow: row nowrap;
         background-color: #E6C799;
         color:#266150;
-        justify-content:space-between;
-        align-items:center;
+        -webkit-box-pack:justify;
+            -ms-flex-pack:justify;
+                justify-content:space-between;
+        -webkit-box-align:center;
+            -ms-flex-align:center;
+                align-items:center;
     }
     .nextCartCheckout > div{
         font-size: 14px;
@@ -155,7 +238,8 @@
     /*styling a TABLE-like cart*/
     table.buyingCart{
         display:table;
-        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
     }
     table.buyingCart > thead > tr > th{
         font-family: 'Trispace', sans-serif;
@@ -193,9 +277,15 @@
         margin: 8px 8px;
     }
      table.buyingCart > tbody > tr > td >div:first-child {
+         display:-webkit-box;
+         display:-ms-flexbox;
          display:flex;
-         justify-content: space-between;
-         align-items: center;
+         -webkit-box-pack: justify;
+             -ms-flex-pack: justify;
+                 justify-content: space-between;
+         -webkit-box-align: center;
+             -ms-flex-align: center;
+                 align-items: center;
     }   
     .leftMargin{
         margin-left:5%;
@@ -245,10 +335,19 @@
         position:fixed;
         width:100%;
         background-color:#A3B40E;
+       display:-webkit-box;
+       display:-ms-flexbox;
        display:flex;
-        flex-flow: row nowrap;
-        align-items: center;
-        justify-content: space-between;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-flow: row nowrap;
+                flex-flow: row nowrap;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
        
     }
     section.titleOfShop > div:nth-child(1){
@@ -268,18 +367,36 @@
         padding: 8px;
         border-radius: 5px;
         cursor:pointer;
-        transform: skew(-15deg);
-        animation-name: btnTitleShopAniBefore;
-        animation-duration: 0.5s;
-        animation-fill-mode: forwards; 
+        -webkit-transform: skew(-15deg);
+            -ms-transform: skew(-15deg);
+                transform: skew(-15deg);
+        -webkit-animation-name: btnTitleShopAniBefore;
+                animation-name: btnTitleShopAniBefore;
+        -webkit-animation-duration: 0.5s;
+                animation-duration: 0.5s;
+        -webkit-animation-fill-mode: forwards;
+                animation-fill-mode: forwards; 
     }
     section.titleOfShop > div:nth-child(2) > button:hover {
-    animation-name: btnTitleShopAni;
-    animation-duration: 0.5s;
-    animation-fill-mode: forwards;   
+    -webkit-animation-name: btnTitleShopAni;
+            animation-name: btnTitleShopAni;
+    -webkit-animation-duration: 0.5s;
+            animation-duration: 0.5s;
+    -webkit-animation-fill-mode: forwards;
+            animation-fill-mode: forwards;   
     }
     
     /*animation*/
+    @-webkit-keyframes btnTitleShopAni {
+        from {
+            background-color:#FEF49D;
+            color:#292C3F;
+        }
+        to {
+            background-color:#971D12;
+        color: #FEF49D;
+        }
+    }
     @keyframes btnTitleShopAni {
         from {
             background-color:#FEF49D;
@@ -288,6 +405,17 @@
         to {
             background-color:#971D12;
         color: #FEF49D;
+        }
+    }
+    
+      @-webkit-keyframes btnTitleShopAniBefore {
+        from {
+            background-color:#971D12;
+            color: #FEF49D;
+        }
+        to {
+            background-color:#FEF49D;
+            color:#292C3F;
         }
     }
     
@@ -303,21 +431,37 @@
     }
     
     article.assortmentWrapper {
+        display: -ms-grid;
         display: grid;
+        -ms-grid-columns: 33% 33% 33%;
         grid-template-columns: 33% 33% 33%;
-        justify-content: space-between;
-        box-sizing: border-box;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
         padding: 10px;
     }
     
     article.assortmentWrapper > section {
         
         border: 2px solid #aaaaaa; 
-        flex:0 0 25%;
+        -webkit-box-flex:0; 
+            -ms-flex:0 0 25%; 
+                flex:0 0 25%;
+        display:-webkit-box;
+        display:-ms-flexbox;
         display:flex;
-        flex-flow: column nowrap;
-        justify-content: center;
-        align-items: center;
+        -webkit-box-orient: vertical;
+        -webkit-box-direction: normal;
+            -ms-flex-flow: column nowrap;
+                flex-flow: column nowrap;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
         margin: 10px;
         padding: 10px;
         -webkit-box-shadow: 2px 4px 18px -1px rgba(0,0,0,0.55); 
@@ -345,10 +489,19 @@
     
     article.assortmentWrapper > section > div:nth-child(4){
         /*the price & button wrapper*/
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        flex-flow: row nowrap;
-        justify-content: space-between;
-        align-items: center;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+            -ms-flex-flow: row nowrap;
+                flex-flow: row nowrap;
+        -webkit-box-pack: justify;
+            -ms-flex-pack: justify;
+                justify-content: space-between;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
        
     }
     article.assortmentWrapper > section > div:nth-child(4)>div:nth-child(1){
@@ -370,19 +523,37 @@
         background-color:#FEF49D;
         border-radius: 5px;
         cursor:pointer;
-        transform: skew(-15deg);
-        animation-name: orderButtonAniBefore;
-        animation-duration: 0.3s;
-        animation-fill-mode: forwards;
+        -webkit-transform: skew(-15deg);
+            -ms-transform: skew(-15deg);
+                transform: skew(-15deg);
+        -webkit-animation-name: orderButtonAniBefore;
+                animation-name: orderButtonAniBefore;
+        -webkit-animation-duration: 0.3s;
+                animation-duration: 0.3s;
+        -webkit-animation-fill-mode: forwards;
+                animation-fill-mode: forwards;
     }
     
     article.assortmentWrapper > section > div:nth-child(4)>div:nth-child(2)>button:hover {
-        animation-name: orderButtonAni;
-        animation-duration: 0.3s;
-        animation-fill-mode: forwards;
+        -webkit-animation-name: orderButtonAni;
+                animation-name: orderButtonAni;
+        -webkit-animation-duration: 0.3s;
+                animation-duration: 0.3s;
+        -webkit-animation-fill-mode: forwards;
+                animation-fill-mode: forwards;
     }
     
     /*animation*/
+    @-webkit-keyframes orderButtonAni{
+        from {
+            color: #213037;
+            background-color:#FEF49D;
+        }
+        to {
+            background-color:#2B4B40;
+            color: #FEF49D;
+        }
+    }
     @keyframes orderButtonAni{
         from {
             color: #213037;
@@ -391,6 +562,17 @@
         to {
             background-color:#2B4B40;
             color: #FEF49D;
+        }
+    }
+    
+    @-webkit-keyframes orderButtonAniBefore{
+        from {
+              background-color:#2B4B40;
+              color: #FEF49D;
+        }
+        to {
+            color: #213037;
+            background-color:#FEF49D;
         }
     }
     
@@ -408,9 +590,15 @@
     
     /**goods section wrapper*/
     .horiz_align{
+       display: -webkit-box;
+       display: -ms-flexbox;
        display: flex;
-        justify-content: center;
-        align-items: center;
+        -webkit-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
+        -webkit-box-align: center;
+            -ms-flex-align: center;
+                align-items: center;
         z-index: -1;
         position: absolute;
         left:0px;
@@ -418,6 +606,17 @@
         width: 100%;
     }
     /*animation*/
+    @-webkit-keyframes btnAni {
+        from {
+            background-color:#A3B40E;
+            color:#292C3F;
+        }
+        to {
+            background-color:#971D12;
+            color: #FEF49D;
+        }
+        
+    }
     @keyframes btnAni {
         from {
             background-color:#A3B40E;
@@ -426,6 +625,18 @@
         to {
             background-color:#971D12;
             color: #FEF49D;
+        }
+        
+    }
+    
+    @-webkit-keyframes btnAniBefore {
+        from {
+            background-color:#971D12;
+            color: #FEF49D;
+        }
+        to {
+            background-color:#A3B40E;
+            color:#292C3F;
         }
         
     }
@@ -445,6 +656,7 @@
     @media screen  and (max-width: 1088px) and (min-width: 640px){
         
         article.assortmentWrapper {
+           -ms-grid-columns: 49% 49%;
            grid-template-columns: 49% 49%;   
            
         }
@@ -453,6 +665,7 @@
     
      @media screen  and (max-width: 640px){
        article.assortmentWrapper {
+           -ms-grid-columns: 99%;
            grid-template-columns: 99%;  
          
         }
@@ -471,7 +684,18 @@
     
     }
     
+    div.mainWrapper{
+        display:block;
+        margin:0 0;
+        max-width:100%;
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+    }
     
+    *{
+        -webkit-box-sizing: border-box;
+                box-sizing: border-box;
+    }
 </style>
     </head>
     <body>
